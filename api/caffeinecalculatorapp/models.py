@@ -10,3 +10,13 @@ from django.db import models
 # TODO-6-0 Créer un nouveau model nommé ConsumedItem et ajouter
 # les champs : user, caffeine_item, consumed_number, consumption_date, created, updated
 # TODO-6-1 Créer une nouvelle migration et l'appliquer
+
+
+class CaffeineItem(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    serving_size_in_ml = models.IntegerField()
+    caffeine_amount_in_mg = models.FloatField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    
