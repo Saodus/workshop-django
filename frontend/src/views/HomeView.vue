@@ -1,4 +1,13 @@
-<script>
+<script setup>
+import axios from 'axios'
+import { ref, onMounted } from 'vue'
+
+const users = ref([])
+onMounted(async () => {
+  const response = await axios.get('http://localhost:8000/api/users/')
+  users.value = response.data
+  console.log(users.value)
+})
 // TODO-2-1 Ajouter le mot clé setup dans la balise script, cela permettra de
 // travailler avec la composition API de Vue.js
 // TODO-2-2 Importer axios, ref et onMounted
