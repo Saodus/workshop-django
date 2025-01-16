@@ -26,8 +26,8 @@ const router = createRouter({
       component: () => import("../views/CreateBeverageView.vue"),
     },
     {
-      path: "/TODOdetailsandstats",
-      name: "TODOdetailsandstats",
+      path: "/details-and-stats",
+      name: "detailsAndStats",
       component: () => import("../views/DetailsAndStatsView.vue"),
     },
   ],
