@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import CaffeineItem
 from django.contrib.auth.models import User
+from rest_framework import viewsets
 # TODO-1-5 Créer un nouveau serializer pour le User (décommenter simplement ce code, plus de détails après)
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

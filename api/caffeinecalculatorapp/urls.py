@@ -2,9 +2,16 @@ import caffeinecalculatorapp.views as views
 import rest_framework.routers as routers
 import rest_framework.urls as rest_framework_urls
 from django.urls import include, path
+from rest_framework.routers import DefaultRouter
+from django.urls import include
 
 # TODO-3-7 Ajouter les urls pour le CaffeineItem en utilisant le Router de DRF
+router = DefaultRouter()
+router.register(r"caffeine-items", views.CaffeineItemViewSet, basename="caffeineitem")
 
+urlpatterns = [
+    path("", include(router.urls)),
+]
 # TODO-6-4 Ajouter les urls pour le ConsumedItem en utilisant le Router de DRF
 # TODO-6-5 Enregistrer 2 entrer de ConsumedItem via la browsable API de DRF,
 # en utilisant le POST form /api/consumed-items/
