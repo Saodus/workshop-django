@@ -55,6 +55,7 @@ const submit = async () => {
   }
 };
 // TODO-9-1 importer le composant ErrorBanner, l'utiliser dans le DOM et tester le résultat
+import ErrorBanner from "../components/ErrorBanner.vue";
 </script>
 
 <template>
@@ -125,7 +126,7 @@ const submit = async () => {
         </q-card>
       </div>
     </div>
-
+    <ErrorBanner :errors="errors" />
     <div class="text-right q-my-md">
       <!-- NOTE: What's "_blank"? source https://www.freecodecamp.org/news/how-to-use-html-to-open-link-in-new-tab/ -->
       <q-btn color="grey-9" target="_blank" href="https://www.caffeineinformer.com/the-caffeine-database">
