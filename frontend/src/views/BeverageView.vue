@@ -1,8 +1,32 @@
 <script setup>
 // TODO-4-1 Importer axios, ref et onMounted
+import axios from "axios";
+import { ref, onMounted } from "vue";
 // TODO-4-2 Récupérer tous les caffeine items de l'API (ref var, async func, axios, onMounted)
-// TODO-4-5 Récupérer tous les users de l'API (ref var, async func, axios, onMounted)
+const caffeineItems = ref([]);
 
+const fetchCaffeineItems = async () => {
+  const res = await axios.get("http://127.0.0.1:8000/api/caffeine-items/");
+
+  caffeineItems.value = res.data;
+};
+
+onMounted(() => {
+  fetchCaffeineItems();
+});
+// TODO-4-5 Récupérer tous les users de l'API (ref var, async func, axios, onMounted)
+const users = ref([]);
+const user = ref(null);
+
+const fetchUsers = async () => {
+  const res = await axios.get("http://127.0.0.1:8000/api/users/");
+
+  users.value = res.data;
+};
+
+onMounted(() => {
+  fetchUsers();
+});
 // TODO-7-0 Permettre d'enregistrer des consumed items (axios post, form fields, date.now, url vs id)
 // TODO-7-2 Créer une variable nommée errors permettant de récupérer les erreurs de l'appel (init à null)
 
@@ -11,9 +35,28 @@
 
 <template>
   <!-- TODO-4-3 Afficher les caffeine items reçus de l'API -->
+  {{ caffeineItems }}
   <!-- TODO-4-4 Remplacer les TODOcaffeine par les bons éléments correspondants -->
-  <!-- TODO-4-6 Remplacer les TODOuser par les bons éléments correspondants -->
+  v-for="(item, index) in caffeineItems"
 
+<div class="text-h4">{{ item.name }}</div>
+<div class="text-subtitle2">{{ item.description }}</div>
+
+<q-badge class="text-h6 q-pa-xs" color="purple">
+  {{ item.serving_size_in_ml }} ml
+</q-badge>
+<q-badge class="text-h6 q-pa-xs" color="teal">
+  {{ item.caffeine_amount_in_mg }} mg
+</q-badge>
+  <!-- TODO-4-6 Remplacer les TODOuser par les bons éléments correspondants -->
+  <q-select
+  v-model="user"
+  option-value="id"
+  option-label="username"
+  :options="users"
+  label="User"
+  outlined
+/>
   <!-- TODO-5-0 Remplacer les TODOcreatebeverage par les bons éléments correspondants (beverages.create) -->
 
   <!-- TODO-7-1 Remplacer les TODOconsumed par les bons éléments correspondants -->
