@@ -84,7 +84,48 @@ class CaffeineItemViewSet(viewsets.ModelViewSet):
     serializer_class = CaffeineItemSerializer
 # TODO-6-3 Créer une nouvelle viewset pour le ConsumedItem et lui ajouter une
 # action POST permettant d'incrémenter le consumed number d'un consumed item
+from .models import ConsumedItem
+from .serializers import ConsumedItemSerializer
+from rest_framework.decorators import action
+from rest_framework.generics import get_object_or_404
+from rest_framework.response import Response
+
+
+# class ConsumedItemViewSet(viewsets.ModelViewSet):
+#     queryset = ConsumedItem.objects.all()
+#     serializer_class = ConsumedItemSerializer
+
+#     @action(detail=True, methods=["POST"], url_path="increase-by-one")
+#     def increase_by_one(self, request, pk):
+#         consumed_item = get_object_or_404(ConsumedItem, pk=pk)
+
+#         data = {"consumed_number": consumed_item.consumed_number + 1}
+#         serializer = self.get_serializer(
+#             consumed_item,
+#             data=data,
+#             partial=True,
+#         )
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 # TODO-6-6 Remplacer les generic views du User par un viewset
+# class UserViewSet(viewsets.ReadOnlyModelViewSet):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
 # TODO-6-10 Mettre à jour le viewset du User pour utiliser le nouveau serializer
+from .serializers import ComplexeUserSerializer
+    
+    
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = ComplexeUserSerializer
 # TODO-6-12 Mettre à jour le viewset de ConsumedItem pour utiliser le nouveau serializer
 # et vérifier que les nouvelles données sont bien accessibles via la browsable API de DRF
+from .serializers import ComplexeConsumedItemSerializer
+    
+    
+class ConsumedItemViewSet(viewsets.ModelViewSet):
+    queryset = ConsumedItem.objects.all()
+    serializer_class = ComplexeConsumedItemSerializer

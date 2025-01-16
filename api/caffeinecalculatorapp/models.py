@@ -20,3 +20,19 @@ class CaffeineItem(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     
+from django.contrib.auth.models import User
+
+class ConsumedItem(models.Model):
+    user = models.ForeignKey(
+        User, related_name="consumed_items", on_delete=models.CASCADE
+    )
+    caffeine_item = models.ForeignKey(
+        CaffeineItem,
+        related_name="consumed_items",
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+    consumed_number = models.PositiveIntegerField()
+    consumption_date = models.DateTimeField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
