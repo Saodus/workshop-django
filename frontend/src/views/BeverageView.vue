@@ -27,9 +27,33 @@ const fetchUsers = async () => {
 onMounted(() => {
   fetchUsers();
 });
-// TODO-7-0 Permettre d'enregistrer des consumed items (axios post, form fields, date.now, url vs id)
-// TODO-7-2 Créer une variable nommée errors permettant de récupérer les erreurs de l'appel (init à null)
+// TODO-7-0 Permettre d'enregistrer des consumed items (axios post, form fields, date.now, url vs id
+const submit = async (caffeine_item) => {
+  try {
+    const res = await axios.post("http://127.0.0.1:8000/api/consumed-items/", {
+      user: user.value?.url,
+      caffeine_item: caffeine_item.url,
+      consumed_number: 1,
+      consumption_date: new Date(),
+    });
 
+    console.log(res);
+  } catch (error) {
+    console.log(error.response.data);
+  }
+};
+// TODO-7-2 Créer une variable nommée errors permettant de récupérer les erreurs de l'appel (init à null)
+const errors = ref(null);
+
+const submit = async () => {
+  try {
+    errors.value = null;
+    await axios
+
+  } catch (error) {
+    errors.value = error.response.data;
+  }
+};
 // TODO-9-1 importer le composant ErrorBanner, l'utiliser dans le DOM et tester le résultat
 </script>
 
@@ -54,6 +78,7 @@ onMounted(() => {
 
   <!-- TODO-7-1 Remplacer les TODOconsumed par les bons éléments correspondants -->
   <!-- TODO-7-3 Afficher le contenu de la var errors ici pour l'instant -->
+  {{ errors }}
   <q-page padding>
     <q-select v-model="TODOuser" option-value="TODOuser" option-label="TODOuser" :options="TODOuser" label="User"
       outlined />
@@ -92,7 +117,7 @@ onMounted(() => {
           <q-separator inset />
 
           <q-card-actions vertical>
-            <q-btn push @click="TODOconsumed" class="q-ma-xs" color="primary" dense>
+            <q-btn push @click="submit(item)" class="q-ma-xs" color="primary" dense>
               <q-icon left size="xl" name="mdi-numeric-positive-1" />
               <div>I drank this one today</div>
             </q-btn>
